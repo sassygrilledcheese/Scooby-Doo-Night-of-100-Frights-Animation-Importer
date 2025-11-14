@@ -12,3 +12,8 @@ Blender plugin to import SKA files and also pulls from io_scene_bfbb_anm to impo
 
 # Required Add-ons
 
+[io_scene_bfbb_anm 0.1.2](https://github.com/Psycrow101/io_scene_bfbb_anm/releases/tag/0.1.2)
+(.ANM files **will not** import without this. Only .SKA files will work if this is not added)
+
+[DragonDFF](https://github.com/Parik27/DragonFF)
+- You will want this for importing the .dff models along with their armatures.
