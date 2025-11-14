@@ -1,13 +1,3 @@
-bl_info = {
-    "name": "Scooby Animation Importer",
-    "author": "Sassy Grilled Cheese",
-    "version": (1, 4, 0),
-    "blender": (4, 0, 0),
-    "location": "File > Import > Scooby Animation (.ska, .anm)",
-    "description": "Import Scooby-Doo / BFBB SKA animations and ANM animations onto the selected armature",
-    "category": "Import-Export",
-}
-
 import bpy
 from bpy.props import StringProperty, CollectionProperty, FloatProperty
 from bpy_extras.io_utils import ImportHelper
@@ -540,12 +530,28 @@ class SCOOBY_OT_import_animations(bpy.types.Operator, ImportHelper):
                 except Exception as error:
                     errors.append(f"{path_object.name}: ANM import error: {error}")
                     continue
+        if imported_ska_actions:
+            self.report({'INFO'}, f"Imported {len(imported_ska_actions)} SKA action(s).")
+        if imported_anm_count:
+            self.report({'INFO'}, f"Imported {imported_anm_count} ANM animation(s).")
+        if errors:
+            for msg in errors:
+                self.report({'WARNING'}, msg)
+
+        return {'FINISHED'}
+
 
 
 
 # ----------------------------------------------------------------------
 # Registration
 # ----------------------------------------------------------------------
+
+def menu_func_import(self, context):
+    self.layout.operator(
+        SCOOBY_OT_import_animations.bl_idname,
+        text="Scooby Animation (.ska, .anm)"
+    )
 
 classes = (
     SCOOBY_OT_import_animations,
